@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Welcome to My Database</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico"/>
+	<style>
+		body {
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("background.jpg");
+			background-attachment: scroll;
+			background-size: cover;
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="index.html">Mydatabase</a>
+
+
+		<ul class="nav">
+			<li class="nav-item active">
+				<a class="nav-link text-white" href="index.html"><i class="fas fa-home"></i> Home <span
+						class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a tabindex="0"class="nav-link text-white" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="This service is for free. Just sign up and login to use." href="#"><i class="fas fa-book-open"></i> About</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="mailto:okya31@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-cloud-download-alt"></i> Download
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</li>
+		</ul>
+
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row" style="height: 15vh"></div>
+	</div>
+	<div class="container mb-5">
+		<div class="d-flex flex-column">
+			<div class="display-4 text-white text-center mt-5">Welcome to My Database!</div>
+			<div class="text-white text-center mt-4">Simple, fast and secure. Try it now for free!</div>
+
+		</div>
+	</div>
+	<!-- Button trigger modal -->
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-4 text-right m-0 p-0">
+				<button type="button" class="btn btn-outline-primary align-items-center mr-1 w-50 text"
+					data-toggle="modal" data-target="#exampleModalScrollable">
+					Login
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalScrollableTitle">Login</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<form action="UserServlet" method="post">
+								<div class="modal-body">
+
+									<div class="col-6 text-left">
+										<div class="form-group">
+											<label for="exampleInputName">Name</label>
+											<input type="text" name="name" class="form-control"
+												placeholder="Enter Name" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword">Password</label>
+											<input type="password" name="password" class="form-control"
+												placeholder="Password" required>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="modal-footer">
+									<a href="forget.jsp">Forget Password?</a>
+									<input type="submit" value="Submit" class="btn btn-primary">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4 text-left m-0 p-0">
+				<button type="button" class="btn btn-outline-primary align-items-center ml-1 w-50" data-toggle="modal"
+					data-target="#exampleModalScrollable2">
+					Sign Up
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalScrollable2" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalScrollableTitle">Sign Up</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<form action="SignupServlet">
+								<div class="modal-body">
+
+									<div class="col-6">
+										<div class="form-group">
+											<label for="exampleInputName">Name</label>
+											<input type="text" name="name" class="form-control"
+												placeholder="Enter Name" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword">Password</label>
+											<input type="password" name="password" class="form-control"
+												placeholder="Password" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword">Email</label>
+											<input type="text" name="email" class="form-control"
+												placeholder="Email" required>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="modal-footer">
+									<input type="submit" value="Submit" class="btn btn-primary">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	</script>
+	<script>
+		$(function () {
+			$('[data-toggle="popover"]').popover()
+		})
+		$(function () {
+			$('.example-popover').popover({
+				container: 'body'
+			})
+		})
+		$('.popover-dismiss').popover({
+			trigger: 'focus'
+		})
+	</script>
+</body>
+
+</html>
