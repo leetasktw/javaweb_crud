@@ -8,11 +8,9 @@ import java.sql.SQLException;
 
 import net.javaguides.usermanagement.model.Member;
 import net.javaguides.usermanagement.model.User;
+import net.javaguides.usermanagement.web.ConnectionUtil;
 
 public class MemberDAO {
-	private static String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=CST";
-	private static String jdbcUsername = "root";
-	private static String jdbcPassword = "12345678";
 	private static final String INSERT_USERS_SQL = "INSERT INTO members" + "  (name, password, email) VALUES "
 			+ " (?, ?, ?);";
 
@@ -24,24 +22,11 @@ public class MemberDAO {
 	public MemberDAO() {
 		
 	}
-	protected static Connection getConnection() {
-		Connection connection = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return connection;
-	}
+
 	public static Member selectMember(String mname) {
 		Member member = null;
 		// Step 1: Establishing a Connection
-		try (Connection connection = getConnection();
+		try (Connection connection = ConnectionUtil.getConnection();
 				// Step 2:Create a statement using connection object
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
 			preparedStatement.setString(1, mname);
@@ -65,7 +50,7 @@ public class MemberDAO {
 	
 	public static boolean updateMember(Member member) throws SQLException {
 		boolean rowUpdated;
-		try (Connection connection = getConnection();
+		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
 			statement.setString(1, member.getName());
 			statement.setString(2, member.getPassword());

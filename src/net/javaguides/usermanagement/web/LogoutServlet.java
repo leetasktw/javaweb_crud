@@ -36,6 +36,7 @@ public class LogoutServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(false);
 		if (session != null) {
+			session.removeAttribute("uname");
 			session.invalidate();
 		}
 		out.print("<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\r\n" + 

@@ -32,67 +32,63 @@ import jdk.nashorn.internal.ir.GetSplitState;
 public class MyFilter implements Filter {
 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
     public MyFilter() {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+    /**
+     * @see Filter#destroy()
+     */
+    public void destroy() {
+        // TODO Auto-generated method stub
+    }
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
+    /**
+     * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+     */
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        try {
+            connection = ConnectionUtil.getConnection();
+            if (connection != null) {
+                preparedStatement = connection.prepareStatement("select * from members where name=? and password=?");
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, password);
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    chain.doFilter(request, response);
+                } else {
+                    out.print("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\r\n" +
+                            "  <strong>Warning!</strong> Name or password error.\r\n" +
+                            "  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\r\n" +
+                            "    <span aria-hidden=\"true\">&times;</span>\r\n" +
+                            "  </button>\r\n" +
+                            "</div>");
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.include(request, response);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+    }
 
-		// pass the request along the filter chain
-		Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");	
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=CST", "root", "12345678");
-			
-			preparedStatement = (PreparedStatement)con.prepareStatement("select * from members where name=? and password=?");
-            preparedStatement.setString(1,name);
-            preparedStatement.setString(2,password);
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-            	chain.doFilter(request, response);
-            } else {
-    			out.print("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\r\n" + 
-    					"  <strong>Warning!</strong> Name or password error.\r\n" + 
-    					"  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\r\n" + 
-    					"    <span aria-hidden=\"true\">&times;</span>\r\n" + 
-    					"  </button>\r\n" + 
-    					"</div>");
-    			RequestDispatcher rd = request.getRequestDispatcher("index.html");
-    			rd.include(request, response);
-    		}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}	
-		
-	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub		
-	}
+    /**
+     * @see Filter#init(FilterConfig)
+     */
+    public void init(FilterConfig fConfig) throws ServletException {
+        // TODO Auto-generated method stub
+    }
 
 }

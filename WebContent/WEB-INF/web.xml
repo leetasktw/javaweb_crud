@@ -6,6 +6,9 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>User Management Web Application</display-name>
 
+	<listener>
+		<listener-class>net.javaguides.usermanagement.web.MyServletContextListener</listener-class>
+	</listener>
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/Error.jsp</location>
